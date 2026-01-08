@@ -8,15 +8,33 @@
 		<title>Astro Basics</title>
 	</head>
 	<body>
-		<slot />
+		<div
+			id="app"
+			class="relative hscreen w-screen p-2 gap-2 flex items-stretch"
+		>
+			<aside class="[grid-area:aside] flex-col flex overflow-y-auto bg-amber-500">
+				ASIDE
+			</aside>
+			<main class="[grid-area:main] bg-blue-800">
+				MAIN
+			</main>
+
+			<footer class="[grid-area:player] bg-amber-700">
+				PLAYER
+
+			</footer>
+			<slot />
+		</div>
 	</body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
+	#app {
+		display: grid;
+		grid-template-areas:
+			"aside main main"
+			"player player player";
+		grid-template-columns: 350px 1fr;
+		grid-template-columns: 1fr auto;
 	}
 </style>
