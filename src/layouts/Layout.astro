@@ -8,21 +8,12 @@
 		<title>Astro Basics</title>
 	</head>
 	<body>
-		<div
-			id="app"
-			class="relative hscreen w-screen p-2 gap-2 flex items-stretch"
-		>
-			<aside class="[grid-area:aside] flex-col flex overflow-y-auto bg-amber-500">
-				ASIDE
+		<div id="app">
+			<aside class="aside">
+				AsideMenu
 			</aside>
-			<main class="[grid-area:main] bg-blue-800">
-				MAIN
-			</main>
-
-			<footer class="[grid-area:player] bg-amber-700">
-				PLAYER
-
-			</footer>
+			<main class="main">MAIN</main>
+			<footer class="player"></footer>
 			<slot />
 		</div>
 	</body>
@@ -32,9 +23,47 @@
 	#app {
 		display: grid;
 		grid-template-areas:
-			"aside main main"
-			"player player player";
-		grid-template-columns: 350px 1fr;
-		grid-template-columns: 1fr auto;
+			"aside main"
+			"player player";
+		grid-template-columns: 220px 1fr;
+		grid-template-rows: 1fr 80px;
+		height: 100vh;
+		width: 100vw;
+		gap: 8px;
+		background: #000;
+	}
+	.aside {
+		grid-area: aside;
+		background: #cce0ff;
+		display: flex;
+		flex-direction: column;
+		overflow-y: auto;
+		color: #222;
+		font-weight: bold;
+		align-items: center;
+		justify-content: center;
+	}
+	.main {
+		grid-area: main;
+		background: #f8caca;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: bold;
+		color: #222;
+	}
+	.player {
+		grid-area: player;
+		background: #e2b48c;
+		height: 80px;
 	}
 </style>
+<style is: global>
+	
+	html,
+	body {
+		font-family: system ui, sans-serif;
+		background: #ffeeee;
+		margin: 0;
+		padding: 0;
+	}
