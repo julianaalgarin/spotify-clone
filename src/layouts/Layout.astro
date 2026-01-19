@@ -1,69 +1,67 @@
+---
+//import { Player } from "@/components/Player"
+import AsideMenu from "../components/AsideMenu.astro"
+import { ViewTransitions } from "astro:transitions"
+
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<div id="app">
-			<aside class="aside">
-				AsideMenu
-			</aside>
-			<main class="main">MAIN</main>
-			<footer class="player"></footer>
-			<slot />
-		</div>
-	</body>
-</html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ViewTransitions fallback="none" />
+  </head>
+  <body>
+    <div id="app" class="relative h-screen p-2 gap-2">
+      <aside class="[grid-area:aside] flex-col flex overflow-y-auto">
+        <AsideMenu />
+      </aside>
 
-<style>
-	#app {
-		display: grid;
-		grid-template-areas:
-			"aside main"
-			"player player";
-		grid-template-columns: 220px 1fr;
-		grid-template-rows: 1fr 80px;
-		height: 100vh;
-		width: 100vw;
-		gap: 8px;
-		background: #000;
-	}
-	.aside {
-		grid-area: aside;
-		background: #e4e9f0;
-		display: flex;
-		flex-direction: column;
-		overflow-y: auto;
-		color: #222;
-		font-weight: bold;
-		align-items: center;
-		justify-content: center;
-	}
-	.main {
-		grid-area: main;
-		background: #f8caca;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-weight: bold;
-		color: #222;
-	}
-	.player {
-		grid-area: player;
-		background: #e2b48c;
-		height: 80px;
-	}
-</style>
-<style is: global>
-	
-	html,
-	body {
-		font-family: system ui, sans-serif;
-		background: #ffeeee;
-		margin: 0;
-		padding: 0;
-	}
+      <main
+        class="[grid-area:main] rounded-lg bg-zinc-900 overflow-y-auto w-full"
+      >
+        <slot />
+      </main>
+
+      <footer class="[grid-area:player] h-20 bg-black">
+        {/* <Player client:load transition:name="media-player" transition:persist /> */}
+      </footer>
+    </div>
+    <style>
+      #app {
+        display: grid;
+        grid-template-areas:
+          "aside main"
+          "player player";
+        grid-template-columns: 350px 1fr;
+        grid-template-rows: 1fr auto;
+      }
+    </style>
+
+    <style is:global>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      html, body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        background: #000;
+        color: #fff;
+        height: 100%;
+        overflow: hidden;
+      }
+    </style>
+  </body>
+</html>
